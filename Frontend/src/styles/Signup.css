@@ -1,0 +1,77 @@
+/* Wrapper to center form */
+.signup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ece9e6, #ffffff);
+}
+
+/* Card */
+.signup-card {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Heading */
+.signup-card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form inputs */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.signup-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.signup-form input:focus {
+  border-color: #2196F3;
+  outline: none;
+}
+
+/* Button */
+.signup-form button {
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.signup-form button:hover {
+  background: #45a049;
+}
+
+/* Switch text */
+.switch {
+  margin-top: 15px;
+  color: #555;
+}
+
+.switch a {
+  color: #2196F3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch a:hover {
+  text-decoration: underline;
+}
