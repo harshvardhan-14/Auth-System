@@ -14,15 +14,27 @@ const userSchema = new mongoose.Schema (
     
     password :{
         type : String,
-        required : true
+        required : true,
+        minlength : 8
     },
     role : {
         type : String,
         enum : ['user', 'admin'],
         default : 'user'
     },
-   
-
+    // reset password token and expiry for password reset functionality
+   resetotphash :{
+    type : String,
+    default : null
+   },
+    resetotpexpiry :{
+        type : Date,
+        default : null
+    },
+    resetAttempt:{
+        type : Number,
+        default : 0
+    }
 },
  {timestamps : true}
 
