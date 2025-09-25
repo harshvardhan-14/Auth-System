@@ -13,6 +13,7 @@ const signup = async (req, res) => {
  try{
     const{name , email , password} = req.body;
 
+
     if(!name || !email || !password){
         return res.status(400).json({message : "All fields are required"});
     }
@@ -21,9 +22,14 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "Password must be at least 8 characters" });
     }
 
+   
+
     const existing = await User.findOne({ email });
     if (existing) {
+      ;
       return res.status(400).json({ message: "User already exists" });
+    } else {
+      
     }
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
@@ -105,11 +111,15 @@ const { email } = req.body;
     await user.save();
 
     await sendOtpEmail(email, otp);
+    
 
     return res.json({ message: "If the email exists, an OTP has been sent" });
   } catch (err) {
-    return res.status(500).json({ message: "Server error" });
-  }
+  console.error("Password reset error:", err); // full error in terminal
+  return res
+    .status(500)
+    .json({ message: "Server error", error: err.message });
+}
 
 
 }
@@ -132,13 +142,13 @@ if (!email || !otp || !newPassword || !confirmPassword) {
 
   try {
     const user = await User.findOne({ email });
-    if (!user || !user.resetOtphash || !user.resetOtpexpiry) {
+    if (!user || !user.resetotphash || !user.resetotpexpiry) {
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
-    if (user.resetOtpexpiry < new Date()) {
-      user.resetOtphash = null;
-      user.resetOtpexpiry = null;
+    if (user.resetotpexpiry < new Date()) {
+      user.resetotphash = null;
+      user.resetotpexpiry = null;
       user.resetAttempt = 0;
       await user.save();
       return res.status(400).json({ message: "OTP expired" });
@@ -148,7 +158,7 @@ if (!email || !otp || !newPassword || !confirmPassword) {
       return res.status(429).json({ message: "Too many attempts" });
     }
 
-    const match = await bcrypt.compare(otp, user.resetOtphash);
+    const match = await bcrypt.compare(otp, user.resetotphash);
     if (!match) {
       user.resetAttempt = (user.resetAttempt || 0) + 1;
       await user.save();
@@ -156,8 +166,8 @@ if (!email || !otp || !newPassword || !confirmPassword) {
     }
 
     user.password = await bcrypt.hash(newPassword, SALT_ROUNDS);
-    user.resetOtphash = null;
-    user.resetOtpexpiry = null;
+    user.resetotphash = null;
+    user.resetotpexpiry = null;
     user.resetAttempt = 0;
     await user.save();
 

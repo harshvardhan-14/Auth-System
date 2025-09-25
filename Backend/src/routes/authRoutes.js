@@ -30,6 +30,7 @@ router.post('/login',
 // Password reset
 
 router.post('/request-reset', authController.requestPasswordReset);
+router.post('/logout',authController.logout)
 router.post('/reset-password', authController.resetPassword);
 
 router.get('/profile', authMiddleware, authController.getProfile);
