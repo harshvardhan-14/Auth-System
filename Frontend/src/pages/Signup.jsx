@@ -1,45 +1,56 @@
 import React , {useState} from 'react'
-import api from "../api/api";
-import {Link} from "react-router-dom"
+import {signup} from "../api/api";
+import {Link , useNavigate} from "react-router-dom"
 import "../styles/Signup.css";
 
 const Signup = () => {
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
- const [form , setForm] = useState({name :"", email:"",password:""});
-
- const handlechange =(e)=>{
- setForm({...form, [e.target.name]: e.target.value})
- };
-
- const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        // I haven't defined this route yet
-      const res = await api.post("/api/auth/signup", form);
-      alert(res.data.message);
-    } catch (err) {
-      alert(err.response?.data?.message || "Signup failed");
-    }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (loading) return;
+    setLoading(true);
+    setMsg("");
+
+    try {
+      const res = await signup(form);
+      setMsg(res.data.message || "Signup successful");
+      setForm({ name: "", email: "", password: "" });
+      navigate('/login');
+    } catch (err) {
+      setMsg(err.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className='signup-container'>
       <h2>Signup page</h2>
 
-    <form onSubmit={handleSubmit} className='signup-form'>
-    <input name='name' placeholder='Name' onChange={handlechange}/>
-    <input name='email' type='email' placeholder='Email' onChange={handlechange}/>
-    <input name='password' type='Password' placeholder='Password' onChange={handlechange}/>
-    <button type ="submit">Signup </button>
-    </form>
-  
-  <p className="switch">
+      <form onSubmit={handleSubmit} className='signup-form'>
+        <input name='name' placeholder='Name' onChange={handleChange} />
+        <input name='email' type='email' placeholder='Email' onChange={handleChange} />
+        <input name='password' type='Password' placeholder='Password' onChange={handleChange} />
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing up..." : "Signup"}
+        </button>
+      </form>
+      {msg && <p className="message">{msg}</p>}
+
+      <p className="switch">
         Already have an account? <Link to="/login">Login here</Link>
       </p>
-
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
+

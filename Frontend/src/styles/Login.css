@@ -1,4 +1,4 @@
-.login-container {
+/* .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,4 +67,115 @@
 
 .switch a:hover {
   text-decoration: underline;
+} */
+
+/* Page container */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f6fa;
+  font-family: Arial, sans-serif;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  width: 350px;
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input fields */
+.input-field {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #333;
+}
+
+/* Button */
+.button {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  border: none;
+}
+
+.button.secondary {
+  background: #333;
+  color: #fff;
+}
+
+.button.secondary:hover {
+  background: #555;
+}
+
+.button.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Message */
+.message {
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.message.success {
+  color: green;
+}
+
+.message.error {
+  color: red;
+}
+
+/* Links */
+.link {
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Utility */
+.mt-2 {
+  margin-top: 10px;
+}
+
+.mt-4 {
+  margin-top: 20px;
+}
+
+.text-center {
+  text-align: center;
 }
